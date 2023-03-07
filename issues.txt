@@ -1,0 +1,13 @@
+polish up wireframe
+set up the html skeleton asap for all users to work on their portions asap /jquery attached to html/ all functions wrapped in jquery function
+label input for search bar
+function for event listner for button
+have function that gets search results from the api beer
+function that populates the page to include search results and intiial loading of the page
+function that populates weather results based off search results
+function to set localStorage and pupulate
+validate inputs
+css framework *new /in the air about which one to use/
+attach hero image to section below header
+style last *responsive design*
+readme and comments
