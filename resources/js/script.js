@@ -18,5 +18,9 @@ function getBrewery() {
 
 }
 
-getBrewery()
 
+
+function saveSearch(city, state){
+    localStorage.setItem("city", city)
+    localStorage.setItem("state", state)
+}
