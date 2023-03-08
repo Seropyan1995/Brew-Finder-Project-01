@@ -20,3 +20,7 @@ function getBrewery() {
 
 getBrewery()
 
+function seachresultslist() {
+  getBrewery(response, function(result));
+
+}
