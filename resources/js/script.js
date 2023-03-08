@@ -18,9 +18,13 @@ function getBrewery() {
 
 }
 
-getBrewery()
 
 function seachresultslist() {
   getBrewery(response, function(result));
 
+}
+
+function saveSearch(city, state){
+    localStorage.setItem("city", city)
+    localStorage.setItem("state", state)
 }
