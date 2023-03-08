@@ -1,4 +1,8 @@
 
+var submitButton = document.getElementById("submit-button");
+submitButton.addEventListener("click", getBrewery);
+
+
 function getBrewery() {
     fetch(
         // 'fetch' data from the appropriate URL
@@ -15,3 +19,4 @@ function getBrewery() {
 }
 
 getBrewery()
+
