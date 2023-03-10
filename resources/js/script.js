@@ -29,13 +29,30 @@ function getBrewery(nameofcity, nameofstate) {
 
 getBrewery()
 
+function getWeather(nameofcity, nameofstate) {
+  
+  fetch(
+    // 'fetch' data from the appropriate URL. Retrieve state and city from search button functionality.
+    `https://api.openweathermap.org/geo/1.0/direct?q=%27+${nameofcity}+%27&limit=5&appid=${openWeatherAPIKey}`
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // array to be placed within local storage 
+    console.log(data)
+    // seachresultslist()
+    weatheroutlook(data)
+    });
 
+}
 
 function displaydata(brewdata) {
     console.log("The function to display the data on each brewery")
     console.log(brewdata)
 
       // loop through array of all breweries
+      $("#search-results-container").empty()
     for (var i=0; i<brewdata.length; i++){
 
         // for each brewery create a card (brewery name, city, address, phone #, state, zip code). Each card to have select button. (add latitude/longitude as data attributes to select button)       
@@ -64,16 +81,16 @@ function displaydata(brewdata) {
         breweryTypeEl.attr('id', 'brewery-type-id-'+i)
         breweryTypeEl.text('Brewery Type: ' + brewdata[i].brewery_type)
 
-        var checkWeatherBtnEl = $('<button>')
-        checkWeatherBtnEl.attr('type', 'button')
-        checkWeatherBtnEl.attr('id', 'check-weather-btn-id-'+i)
-        checkWeatherBtnEl.text('Select Brewery!')
+        // var checkWeatherBtnEl = $('<button>')
+        // checkWeatherBtnEl.attr('type', 'button')
+        // checkWeatherBtnEl.attr('id', 'check-weather-btn-id-'+i)
+        // checkWeatherBtnEl.text('Select Brewery!')
 
         brewContainerEl.append(breweryNameEl)
         brewContainerEl.append(breweryCityStateZipEl)
         brewContainerEl.append(breweryPhoneEl)
         brewContainerEl.append(breweryTypeEl)
-        brewContainerEl.append(checkWeatherBtnEl)
+        // brewContainerEl.append(checkWeatherBtnEl)
 
         // append card to the card container 
         searchResultsEl.append(brewContainerEl)
@@ -81,9 +98,6 @@ function displaydata(brewdata) {
         //longitude and latitude data to pass to the weatheroutlook function when a city is selected.
         var longitude = brewdata[i].longitude
         var latitude = brewdata[i].latitude
-
-        weatheroutlook()
-
     }
 
 }
@@ -99,15 +113,16 @@ function seachresultslist() {
 }
 
 // insert longitude and latitude variables into weatheroutlook function call
-function weatheroutlook(longitude, latitude) {
+function weatheroutlook(weatherdata) {
     console.log("Function to fetch the weather outlook")
+    console.log(weatherdata)
   // get latitude/longitude from clicking select button 
-   var longitude = "-78.88891655" 
-   var latitude = "35.89445737"
+   var longitude = weatherdata[0].lon
+   var latitude = weatherdata[0].lat
 
   // fetch weather api 
   // use longitude/latitude to retrieve current weather for specific brewery
-  var currentUrl = "https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=" + openWeatherAPIKey + "&units=imperial";
+  var currentUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${openWeatherAPIKey}&units=imperial`;
 
   console.log(currentUrl)
 
@@ -134,10 +149,10 @@ function displayweather(weatherdata) {
     console.log(weatherdata)
 
     // Pull breweryName from local Storage.?. This is just a placeholder value.
-    breweryName = "Barrel Culture Brewing And Blending"
+    cityName = weatherdata.name
 
     // create html elements to create weather data
-    $("#brewery-weather-id").text("Current weather conditions for " + breweryName + ":")
+    $("#brewery-weather-id").text("Current weather conditions for " + cityName + ":")
     $("#weather-conditions-id").text(weatherdata.weather[0].main)
     iconURL = 'https://openweathermap.org/img/w/'+ weatherdata.weather[0].icon +'.png'
     var iconImage = $("<img>").attr("src", iconURL);
@@ -167,6 +182,7 @@ function initListener() {
     var nameofstate = $("#state-dropdown-id").val()
   
     getBrewery(nameofcity, nameofstate)
+    getWeather(nameofcity, nameofstate)
   })
 
 }
