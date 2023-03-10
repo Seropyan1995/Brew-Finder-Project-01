@@ -2,6 +2,7 @@
 var openWeatherAPIKey = "357d278b4dc1d31d59f16e3afe69a945";
 
 var searchResultsEl = $("#search-results-container");
+var stateDropdownEl = $("#state-dropdown-id");
 
 // button to send state & city to getbrewery function
 // card container to have even listener attached (to help trigger weather API by clicking on the select button)
@@ -9,10 +10,10 @@ var submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", getBrewery);
 
 
-function getBrewery(nameofcity) {
+function getBrewery(nameofcity, nameofstate) {
     fetch(
         // 'fetch' data from the appropriate URL. Retrieve state and city from search button functionality.
-        `https://api.openbrewerydb.org/breweries?by_state=north_carolina&by_city=${nameofcity}&per_page=20`
+        `https://api.openbrewerydb.org/breweries?by_state=${nameofstate}&by_city=${nameofcity}&per_page=20`
       )
         .then(function (response) {
           return response.json();
@@ -163,11 +164,26 @@ function initListener() {
     event.preventDefault()
     console.log("formsubmitted")
     var nameofcity = $("#text-input").val()
-    getBrewery(nameofcity)
+    var nameofstate = $("#state-dropdown-id").val()
+  
+    getBrewery(nameofcity, nameofstate)
   })
 
 }
 
 $(function(){
   initListener()
+
+  const states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+  console.log(states)
+  for (var i=0; i<states.length; i++) {
+      var stateEl = $('<option>');
+      stateEl.attr('id', states[i] + '-id')
+      stateEl.text(states[i])
+    
+      stateDropdownEl.append(stateEl)
+
+      console.log(stateDropdownEl)
+
+  } 
 });
