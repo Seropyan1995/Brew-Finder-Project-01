@@ -9,10 +9,10 @@ var submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", getBrewery);
 
 
-function getBrewery() {
+function getBrewery(nameofcity) {
     fetch(
         // 'fetch' data from the appropriate URL. Retrieve state and city from search button functionality.
-        'https://api.openbrewerydb.org/breweries?by_state=north_carolina&by_city=Durham&per_page=20'
+        `https://api.openbrewerydb.org/breweries?by_state=north_carolina&by_city=${nameofcity}&per_page=20`
       )
         .then(function (response) {
           return response.json();
@@ -156,3 +156,18 @@ function saveSearch(city, state){
     localStorage.setItem("city", city)
     localStorage.setItem("state", state)
 }
+
+function initListener() {
+  console.log("initlistener")
+  $("#city-searchform").submit(function(event){
+    event.preventDefault()
+    console.log("formsubmitted")
+    var nameofcity = $("#text-input").val()
+    getBrewery(nameofcity)
+  })
+
+}
+
+$(function(){
+  initListener()
+});
