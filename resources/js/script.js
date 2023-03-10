@@ -183,12 +183,22 @@ function initListener() {
   
     getBrewery(nameofcity, nameofstate)
     getWeather(nameofcity, nameofstate)
+    saveSearch(nameofcity, nameofstate)
   })
 
 }
 
+var loadLastCity = function() {
+  nameofcity = localStorage.getItem("city");
+  nameofstate = localStorage.getItem("state");
+
+  getBrewery(nameofcity, nameofstate)
+  getWeather(nameofcity, nameofstate)
+}
+
 $(function(){
   initListener()
+  loadLastCity()
 
   const states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
   console.log(states)
