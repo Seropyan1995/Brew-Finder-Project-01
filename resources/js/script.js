@@ -39,10 +39,8 @@ function getWeather(nameofcity, nameofstate) {
       return response.json();
     })
     .then(function (data) {
-      // array to be placed within local storage 
-    console.log(data)
-    // seachresultslist()
-    weatheroutlook(data)
+
+    weatheroutlook(data, nameofstate)
     });
 
 }
@@ -113,12 +111,20 @@ function seachresultslist() {
 }
 
 // insert longitude and latitude variables into weatheroutlook function call
-function weatheroutlook(weatherdata) {
+function weatheroutlook(weatherdata, nameofstate) {
     console.log("Function to fetch the weather outlook")
     console.log(weatherdata)
+    console.log(nameofstate)
+  for (var i=0; i<weatherdata.length;i++){
+    console.log(weatherdata[i].state)
+    if(weatherdata[i].state == nameofstate){
+      var longitude = weatherdata[i].lon
+      var latitude = weatherdata[i].lat
+    }
+  }
   // get latitude/longitude from clicking select button 
-   var longitude = weatherdata[0].lon
-   var latitude = weatherdata[0].lat
+  //  var longitude = weatherdata[0].lon
+  //  var latitude = weatherdata[0].lat
 
   // fetch weather api 
   // use longitude/latitude to retrieve current weather for specific brewery
@@ -133,18 +139,13 @@ function weatheroutlook(weatherdata) {
         .then(function (data) {
             console.log(data)
             // return weather data
-            return displayweather(data)
+            return displayweather(data, nameofstate)
 
         });
         
-
-
-
-
-
 }
 
-function displayweather(weatherdata) {
+function displayweather(weatherdata, nameofstate) {
     console.log("This function displays the weather data.")
     console.log(weatherdata)
 
@@ -152,7 +153,7 @@ function displayweather(weatherdata) {
     cityName = weatherdata.name
 
     // create html elements to create weather data
-    $("#brewery-weather-id").text("Current weather conditions for " + cityName + ":")
+    $("#brewery-weather-id").text("Current weather conditions for " + cityName + ", " + nameofstate +":")
     $("#weather-conditions-id").text(weatherdata.weather[0].main)
     iconURL = 'https://openweathermap.org/img/w/'+ weatherdata.weather[0].icon +'.png'
     var iconImage = $("<img>").attr("src", iconURL);
