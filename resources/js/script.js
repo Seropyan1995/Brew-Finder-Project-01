@@ -10,10 +10,10 @@ var submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", getBrewery);
 
 
-function getBrewery(nameofcity, nameofstate) {
+function getBrewery(nameOfCity, nameOfState) {
     fetch(
         // 'fetch' data from the appropriate URL. Retrieve state and city from search button functionality.
-        `https://api.openbrewerydb.org/breweries?by_state=${nameofstate}&by_city=${nameofcity}&per_page=20`
+        `https://api.openbrewerydb.org/breweries?by_state=${nameOfState}&by_city=${nameOfCity}&per_page=20`
       )
         .then(function (response) {
           return response.json();
@@ -22,62 +22,61 @@ function getBrewery(nameofcity, nameofstate) {
           // array to be placed within local storage 
         console.log(data)
         // seachresultslist()
-        displaydata(data)
+        displayData(data)
         });
 
 }
 
 getBrewery()
 
-function getWeather(nameofcity, nameofstate) {
+function getWeather(nameOfCity, nameOfState) {
   
   fetch(
     // 'fetch' data from the appropriate URL. Retrieve state and city from search button functionality.
-    `https://api.openweathermap.org/geo/1.0/direct?q=%27+${nameofcity}+%27&limit=5&appid=${openWeatherAPIKey}`
+    `https://api.openweathermap.org/geo/1.0/direct?q=%27+${nameOfCity}+%27&limit=5&appid=${openWeatherAPIKey}`
   )
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
 
-    weatheroutlook(data, nameofstate)
+    weatherOutlook(data, nameOfState)
     });
 
 }
 
-function displaydata(brewdata) {
+function displayData(brewData) {
     console.log("The function to display the data on each brewery")
-    console.log(brewdata)
+    console.log(brewData)
 
       // loop through array of all breweries
       $("#search-results-container").empty()
-    for (var i=0; i<brewdata.length; i++){
+    for (var i=0; i<brewData.length; i++){
 
         // for each brewery create a card (brewery name, city, address, phone #, state, zip code). Each card to have select button. (add latitude/longitude as data attributes to select button)       
         var brewContainerEl = $('<section>');
         brewContainerEl.attr('id', 'brewery-id-'+i)
         brewContainerEl.attr('class', 'col-sm bg-primary text-white m-1') 
 
-        
         var breweryNameEl = $('<p>')
         breweryNameEl.attr('id', 'brewery-name-id-'+i)
-        breweryNameEl.text('Name: ' + brewdata[i].name)
+        breweryNameEl.text('Name: ' + brewData[i].name)
 
         var breweryStreetEl = $('<p>')
         breweryStreetEl.attr('id', 'brewery-street-id-'+i)
-        breweryStreetEl.text('Street: ' + brewdata[i].street)
+        breweryStreetEl.text('Street: ' + brewData[i].street)
         
         var breweryCityStateZipEl = $('<p>')
         breweryCityStateZipEl.attr('id', 'brewery-city-state-zip-id-'+i)
-        breweryCityStateZipEl.text('Address: ' + brewdata[i].city + ', ' + brewdata[i].state + ' ' + brewdata[i].postal_code)
+        breweryCityStateZipEl.text('Address: ' + brewData[i].street + ', ' + brewData[i].city + ', ' + brewData[i].state + ' ' + brewData[i].postal_code)
 
         var breweryPhoneEl = $('<p>')
         breweryPhoneEl.attr('id', 'brewery-phone-id-'+i)
-        breweryPhoneEl.text('Phone: ' + brewdata[i].phone)
+        breweryPhoneEl.text('Phone: ' + brewData[i].phone)
 
         var breweryTypeEl = $('<p>')
         breweryTypeEl.attr('id', 'brewery-type-id-'+i)
-        breweryTypeEl.text('Brewery Type: ' + brewdata[i].brewery_type)
+        breweryTypeEl.text('Brewery Type: ' + brewData[i].brewery_type)
 
         // var checkWeatherBtnEl = $('<button>')
         // checkWeatherBtnEl.attr('type', 'button')
@@ -92,17 +91,17 @@ function displaydata(brewdata) {
 
         // append card to the card container 
         searchResultsEl.append(brewContainerEl)
-
+            
         //longitude and latitude data to pass to the weatheroutlook function when a city is selected.
-        var longitude = brewdata[i].longitude
-        var latitude = brewdata[i].latitude
+        var longitude = brewData[i].longitude
+        var latitude = brewData[i].latitude
     }
 
 }
 
 
-function seachresultslist() {
-    console.log("I am not sure this function is necessary. Redundant to displaydata?")
+function searchResultsList() {
+    console.log("I am not sure this function is necessary. Redundant to displayData?")
   // retrieve array from local storage as a whole
   // use local storage to populate search results list
   // selector button to choose a specific brewery within the results list
@@ -111,15 +110,15 @@ function seachresultslist() {
 }
 
 // insert longitude and latitude variables into weatheroutlook function call
-function weatheroutlook(weatherdata, nameofstate) {
+function weatherOutlook(weatherData, nameOfState) {
     console.log("Function to fetch the weather outlook")
-    console.log(weatherdata)
-    console.log(nameofstate)
-  for (var i=0; i<weatherdata.length;i++){
-    console.log(weatherdata[i].state)
-    if(weatherdata[i].state == nameofstate){
-      var longitude = weatherdata[i].lon
-      var latitude = weatherdata[i].lat
+    console.log(weatherData)
+    console.log(nameOfState)
+  for (var i=0; i<weatherData.length;i++){
+    console.log(weatherData[i].state)
+    if(weatherData[i].state == nameOfState){
+      var longitude = weatherData[i].lon
+      var latitude = weatherData[i].lat
     }
   }
   // get latitude/longitude from clicking select button 
@@ -139,28 +138,28 @@ function weatheroutlook(weatherdata, nameofstate) {
         .then(function (data) {
             console.log(data)
             // return weather data
-            return displayweather(data, nameofstate)
+            return displayWeather(data, nameOfState)
 
         });
         
 }
 
-function displayweather(weatherdata, nameofstate) {
+function displayWeather(weatherData, nameOfState) {
     console.log("This function displays the weather data.")
-    console.log(weatherdata)
+    console.log(weatherData)
 
     // Pull breweryName from local Storage.?. This is just a placeholder value.
-    cityName = weatherdata.name
+    cityName = weatherData.name
 
     // create html elements to create weather data
-    $("#brewery-weather-id").text("Current weather conditions for " + cityName + ", " + nameofstate +":")
-    $("#weather-conditions-id").text(weatherdata.weather[0].main)
-    iconURL = 'https://openweathermap.org/img/w/'+ weatherdata.weather[0].icon +'.png'
+    $("#brewery-weather-id").text("Current weather conditions for " + cityName + ", " + nameOfState +":")
+    $("#weather-conditions-id").text(weatherData.weather[0].main)
+    iconURL = 'https://openweathermap.org/img/w/'+ weatherData.weather[0].icon +'.png'
     var iconImage = $("<img>").attr("src", iconURL);
     $("#weather-conditions-id").append(iconImage)
-    $("#temp-id").text("Temperature: " + weatherdata.main.temp + "\u00B0F")
-    $("#wind-id").text("Wind Speed: " + weatherdata.wind.speed + " MPH")
-    $("#humidity-id").text("Humidity: " + weatherdata.main.humidity + "%")
+    $("#temp-id").text("Temperature: " + weatherData.main.temp + "\u00B0F")
+    $("#wind-id").text("Wind Speed: " + weatherData.wind.speed + " MPH")
+    $("#humidity-id").text("Humidity: " + weatherData.main.humidity + "%")
 
     // append to the weather container       
     
@@ -179,12 +178,12 @@ function initListener() {
   $("#city-searchform").submit(function(event){
     event.preventDefault()
     console.log("formsubmitted")
-    var nameofcity = $("#text-input").val()
-    var nameofstate = $("#state-dropdown-id").val()
+    var nameOfCity = $("#text-input").val()
+    var nameOfState = $("#state-dropdown-id").val()
   
-    getBrewery(nameofcity, nameofstate)
-    getWeather(nameofcity, nameofstate)
-    saveSearch(nameofcity, nameofstate)
+    getBrewery(nameOfCity, nameOfState)
+    getWeather(nameOfCity, nameOfState)
+    saveSearch(nameOfCity, nameOfState)
   })
 
 }
