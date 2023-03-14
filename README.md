@@ -10,33 +10,31 @@ N/A
 
 ## Usage
 
-Open the URL and enter a city name to find a list of breweries and the current weather for your chosen city.
+Open the URL, enter city and state information, and click the submit button to find a list of breweries and current weather conditions for your chosen city.
 
-URL:
+URL: https://seropyan1995.github.io/Brew-Finder-Project-01/
 
-Screenshot:
+Screenshot: 
+
+![](./resources/images/screenshot.png)
 
 ## Credits
 
 ### Contributors:
 
-Daniel Bowen
-https://github.com/dfbowen77 
+Daniel Bowen - https://github.com/dfbowen77 
 
-Gevork Seropyan
-https://github.com/Seropyan1995
+Gevork Seropyan - https://github.com/Seropyan1995
 
-Danial Mahmoudi
-https://github.com/danialmahmoudi16
+Danial Mahmoudi - https://github.com/danialmahmoudi16
 
-Jon Parker 
-https://github.com/jparker1221
+Jon Parker - https://github.com/jparker1221
 
 ### APIs Used:
 
-https://www.openbrewerydb.org/
+Open Brewery DB - https://www.openbrewerydb.org/
 
-https://openweathermap.org/
+OpenWeather - https://openweathermap.org/
 
 ## License
 
