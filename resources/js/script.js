@@ -27,8 +27,6 @@ function getBrewery(nameOfCity, nameOfState) {
 
 }
 
-getBrewery()
-
 function getWeather(nameOfCity, nameOfState) {
   
   fetch(
@@ -48,6 +46,7 @@ function getWeather(nameOfCity, nameOfState) {
 function displayData(brewData) {
     console.log("The function to display the data on each brewery")
     console.log(brewData)
+    //  
 
       // loop through array of all breweries
       $("#search-results-container").empty()
@@ -97,16 +96,6 @@ function displayData(brewData) {
         var latitude = brewData[i].latitude
     }
 
-}
-
-
-function searchResultsList() {
-    console.log("I am not sure this function is necessary. Redundant to displayData?")
-  // retrieve array from local storage as a whole
-  // use local storage to populate search results list
-  // selector button to choose a specific brewery within the results list
-  // pass long/lat to weather function
-    // weatheroutlook()
 }
 
 // insert longitude and latitude variables into weatheroutlook function call
@@ -180,6 +169,9 @@ function initListener() {
     console.log("formsubmitted")
     var nameOfCity = $("#text-input").val()
     var nameOfState = $("#state-dropdown-id").val()
+
+    $("#search-results-id").show();
+    $("#weather-results-id").show();
   
     getBrewery(nameOfCity, nameOfState)
     getWeather(nameOfCity, nameOfState)
@@ -189,11 +181,11 @@ function initListener() {
 }
 
 var loadLastCity = function() {
-  nameofcity = localStorage.getItem("city");
-  nameofstate = localStorage.getItem("state");
+  nameOfCity = localStorage.getItem("city");
+  nameOfState = localStorage.getItem("state");
 
-  getBrewery(nameofcity, nameofstate)
-  getWeather(nameofcity, nameofstate)
+  getBrewery(nameOfCity, nameOfState)
+  getWeather(nameOfCity, nameOfState)
 }
 
 $(function(){
@@ -211,5 +203,11 @@ $(function(){
 
       console.log(stateDropdownEl)
 
+  } 
+
+  nameOfCity = localStorage.getItem("city");
+  if (!nameOfCity) {
+    $("#search-results-id").hide(); 
+    $("#weather-results-id").hide();
   } 
 });

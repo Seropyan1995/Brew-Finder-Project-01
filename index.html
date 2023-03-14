@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <div class="title is-1 has-text-centered has-text-info my-4">
+        <div class="title is-1 has-text-centered has-text-info my-4 has-background-black has-text-white">
             <h1>Brew Finder</h1>
         </div>
     </header>
@@ -34,7 +34,7 @@
         </section>
 
         <div class="columns mx-2">
-            <section class="column search-container">
+            <section class="column search-container" id="search-results-id">
                 <div class="has-text-white has-background-black has-text-left m-1 p-1 ">
                     <h2>Search Results: </h2>
                     <div id="search-results-container"></div>
@@ -42,7 +42,7 @@
             </section>
 
 
-            <section class="column weather-container">
+            <section class="column weather-container"  id="weather-results-id">
                 <div class="has-text-white has-background-black has-text-left m-1 p-1">
                     <h2 id="brewery-weather-id" class="has-background-info"></h2>
                     <p id="weather-conditions-id" class="has-background-info"></p>
