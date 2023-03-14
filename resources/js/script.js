@@ -56,7 +56,7 @@ function displayData(brewData) {
         // for each brewery create a card (brewery name, city, address, phone #, state, zip code). Each card to have select button. (add latitude/longitude as data attributes to select button)       
         var brewContainerEl = $('<section>');
         brewContainerEl.attr('id', 'brewery-id-'+i)
-        brewContainerEl.attr('class', 'col-sm bg-primary text-white m-1') 
+        brewContainerEl.attr('class', 'has-text-white has-background-info has-text-left m-1 p-1') 
 
         var breweryNameEl = $('<p>')
         breweryNameEl.attr('id', 'brewery-name-id-'+i)
